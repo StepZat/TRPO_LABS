@@ -1,17 +1,30 @@
+import java.util.List;
+
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        CustomSet cset = new CustomSet(5, 6, 7, 7, 9);
+        System.out.println(cset);
+        cset.add(20);
+        System.out.println(cset);
+        cset.del(7);
+        System.out.println(cset);
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        CustomSet other = new CustomSet(7, 9, 10, 20);
+        CustomSet intersectionSet = cset.intersection(other);
+        System.out.println(intersectionSet);
+        CustomSet unionSet = cset.union(other);
+        System.out.println(unionSet);
+        CustomSet diffSet = cset.diff(other);
+        System.out.println(diffSet);
+        CustomSet cset2 = new CustomSet();
+        cset2.readFromTextFile("file.txt");
+        cset2.add(123);
+        cset2.saveToBinaryFile("file2.bin");
+        CustomSet cset3 = new CustomSet();
+        cset3.readFromBinaryFile("file2.bin");
+        System.out.println(cset3);
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
-        }
     }
 }

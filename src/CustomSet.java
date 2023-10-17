@@ -6,19 +6,19 @@ import java.util.Scanner;
 public class CustomSet {
     private List<Integer> elements;
 
-    public CustomSet() {                                // Непараметрический конструктор
-        elements = new ArrayList<>();
+    public CustomSet() {                                    // Непараметрический конструктор
+        this.elements = new ArrayList<>();
     }
 
-    public CustomSet(List<Integer> BaseElements) {        // Параметрический конструктор
-        elements = new ArrayList<>(BaseElements);       // Создание на основе готового списка
+    public CustomSet(List<Integer> BaseElements) {          // Параметрический конструктор
+        this.elements = new ArrayList<>(BaseElements);      // Создание на основе готового списка
     }
 
-    public CustomSet(Integer... BaseElements) {          // Параметрический конструктор
-        elements = new ArrayList<>();                   // Создание на основе параметров - целых чисел
+    public CustomSet(Integer... BaseElements) {             // Параметрический конструктор
+        this.elements = new ArrayList<>();                  // Создание на основе параметров - целых чисел
         for (Integer element : BaseElements) {
-            if (!elements.contains(element)) {
-                elements.add(element);
+            if (!this.elements.contains(element)) {
+                this.elements.add(element);
             }
         }
     }
@@ -26,7 +26,7 @@ public class CustomSet {
 
     public String toString() {                          // Метод для вывода множества в stdout
         StringBuilder array = new StringBuilder("{ ");
-        for (Integer elem : elements) {
+        for (Integer elem : this.elements) {
             array.append(elem.toString()).append(" ");
         }
         array.append("}");
@@ -34,7 +34,7 @@ public class CustomSet {
     }
 
     public void addFromInput() {
-        elements = new ArrayList<>();
+        this.elements = new ArrayList<>();
         System.out.println("Введите элементы множества через пробел. При окончании нажмите Enter");
         Scanner sc = new Scanner(System.in);
         if (sc.hasNextLine()) {
@@ -43,7 +43,7 @@ public class CustomSet {
             for (String s : inputArray) {
                 try {
                     int num = Integer.parseInt(s);
-                    elements.add(num);
+                    this.elements.add(num);
                 } catch (NumberFormatException e) {
                     System.out.println("Ошибка при чтении числа " + s);
                 }
@@ -53,23 +53,23 @@ public class CustomSet {
 
     public void add(Integer element) {
         if (!containsElement(element)) {
-            elements.add(element);
+            this.elements.add(element);
         }
     }
 
     public void del(Integer element) {
         if (containsElement(element)) {
-            elements.remove(element);
+            this.elements.remove(element);
         }
     }
 
     public boolean containsElement(Integer element) {
-        return elements.contains(element);
+        return this.elements.contains(element);
     }
 
     public CustomSet intersection(CustomSet other) {
         List<Integer> result = new ArrayList<>();
-        for (Integer element : elements) {
+        for (Integer element : this.elements) {
             if (other.containsElement(element)) {
                 result.add(element);
             }
@@ -78,7 +78,7 @@ public class CustomSet {
     }
 
     public CustomSet union(CustomSet other) {
-        List<Integer> result = new ArrayList<>(elements);
+        List<Integer> result = new ArrayList<>(this.elements);
         for (Integer element : other.elements) {
             if (!containsElement(element)) {
                 result.add(element);
@@ -89,7 +89,7 @@ public class CustomSet {
 
     public CustomSet diff(CustomSet other) {
         List<Integer> result = new ArrayList<>();
-        for (Integer element : elements) {
+        for (Integer element : this.elements) {
             if (!other.containsElement(element)) {
                 result.add(element);
             }
@@ -99,7 +99,7 @@ public class CustomSet {
 
     public void saveToTextFile(String filename) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(filename))) {
-            for (Integer element : elements) {
+            for (Integer element : this.elements) {
                 writer.print(element + " ");
             }
         } catch (IOException e) {
@@ -109,7 +109,7 @@ public class CustomSet {
 
     public void saveToBinaryFile(String filename) {
         try (ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(filename))) {
-            for (Integer element : elements) {
+            for (Integer element : this.elements) {
                 outputStream.writeObject(element);
             }
         } catch (IOException e) {
@@ -123,7 +123,7 @@ public class CustomSet {
             if (line != null) {
                 String[] values = line.split(" ");
                 for (String value : values) {
-                    elements.add(Integer.parseInt(value));
+                    this.elements.add(Integer.parseInt(value));
                 }
             }
         } catch (IOException e) {
@@ -135,7 +135,7 @@ public class CustomSet {
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(filename))) {
             while (true) {
                 try {
-                    elements.add((Integer) inputStream.readObject());
+                    this.elements.add((Integer) inputStream.readObject());
                 } catch (EOFException e) {
                     break;
                 }
